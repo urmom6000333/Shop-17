@@ -1,0 +1,55 @@
+/* public/style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.upload-form {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.upload-form input,
+.upload-form textarea,
+.upload-form button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 300px;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+}
+
+.product p {
+  margin: 5px 0;
+}
+
+.product strong {
+  color: green;
+  font-size: 18px;
+}
