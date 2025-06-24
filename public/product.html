@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="nav">
+    <button onclick="goBack()">Back to Shop</button>
+    <div id="cartCount">🛒 0</div>
+  </div>
+
+  <div id="productDetailContainer"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+    async function fetchProduct() {
+      const res = await fetch(`/product/${productId}`);
+      const product = await res.json();
+      renderProduct(product);
+    }
+
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById('cartCount').innerText = `🛒 ${cart.length}`;
+    }
+
+    function addToCart(product, size) {
+      if (!size) return alert('Please select a size.');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ ...product, selectedSize: size });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert('Added to cart!');
+    }
+
+    function renderProduct(product) {
+      const container = document.getElementById('productDetailContainer');
+      container.innerHTML = `
+        <div class="product-detail">
+          <img src="${product.imageUrl}" alt="${product.title}" />
+          ${product.images?.map(img => `<img src="${img}" class="extra-img" />`).join('') || ''}
+          <h2 ${isAdmin ? 'contenteditable="true"' : ''} id="title">${product.title}</h2>
+          <p ${isAdmin ? 'contenteditable="true"' : ''} id="description">${product.description}</p>
+          <strong ${isAdmin ? 'contenteditable="true"' : ''} id="price">$${product.price}</strong>
+
+          <div class="size-section">
+            <h4>Sizes:</h4>
+            <div id="sizeList">
+              ${product.sizes.map(size => `
+                <span class="size-item">${size}
+                  ${isAdmin ? `<button onclick="removeSize('${size}')">✖</button>` : ''}
+                </span>
+              `).join('')}
+            </div>
+            ${isAdmin ? `
+              <input id="newSizeInput" placeholder="Add new size" />
+              <button onclick="addSize()">+</button>
+            ` : ''}
+          </div>
+
+          <select id="sizeSelect">
+            <option value="">Choose a size</option>
+            ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+          </select>
+          <button onclick='addToCart(${JSON.stringify(product)}, document.getElementById("sizeSelect").value)'>Add to Cart</button>
+
+          ${isAdmin ? `
+            <div class="admin-tools">
+              <input type="file" id="newImageInput" />
+              <button onclick="uploadNewImage(${product.id})">Upload New Image</button>
+              <button onclick="saveEdits(${product.id})">Save Changes</button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function addSize() {
+      const newSize = document.getElementById('newSizeInput').value;
+      if (!newSize) return;
+      fetch(`/product/${productId}/size`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'add', size: newSize })
+      }).then(fetchProduct);
+    }
+
+    function removeSize(size) {
+      fetch(`/product/${productId}/size`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'remove', size })
+      }).then(fetchProduct);
+    }
+
+    function saveEdits(id) {
+      const title = document.getElementById('title').innerText;
+      const description = document.getElementById('description').innerText;
+      const price = document.getElementById('price').innerText.replace('$', '');
+      fetch(`/product/${id}/edit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, price })
+      }).then(() => alert('Product updated!'));
+    }
+
+    function uploadNewImage(id) {
+      const file = document.getElementById('newImageInput').files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+
+      fetch(`/product/${id}/image`, {
+        method: 'POST',
+        body: formData
+      }).then(fetchProduct);
+    }
+
+    fetchProduct();
+    updateCartCount();
+  </script>
+</body>
+</html>
