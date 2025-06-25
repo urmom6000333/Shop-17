@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1750730360131,
+    "title": "Hello change",
+    "price": "400",
+    "description": "Change",
+    "imageUrl": "/uploads/1750755200111-tyrese haliburton.jpg",
+    "images": [
+      "/uploads/1750755275245-psg shirt.jpg",
+      "/uploads/1750756050519-jaylen brown basketball jersey.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750731489518,
+    "title": "Jaylen Brown BIG BLACK BEAST",
+    "price": "1000",
+    "description": "WHATS THE WORD ",
+    "imageUrl": "/uploads/1750754478879-barcelona jersey.jpg",
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750732284155,
+    "title": "PSG SHIRT",
+    "price": "1000",
+    "description": "Hello",
+    "imageUrl": "/uploads/1750754496272-jaylen brown basketball jersey.jpg",
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  }
+]
