@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Product Store</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script>
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  </script>
+
+  <div class="nav">
+    <button onclick="handleAdminLogin()" id="adminBtn">Admin Login</button>
+    <button onclick="handleAdminLogout()" id="logoutBtn" style="display:none">Logout</button>
+    <div id="cartCount">🛒 0</div>
+    <button id="resetCartBtn">Reset Cart</button> <!-- ✅ Reset Cart Button -->
+  </div>
+
+  <h1 id="uploadTitle" style="display: none">Upload a Product</h1>
+  <div class="upload-form" id="uploadForm" style="display: none">
+    <input type="file" id="imageInput" />
+    <input type="text" id="titleInput" placeholder="Product Title" />
+    <input type="text" id="priceInput" placeholder="Price" />
+    <textarea id="descriptionInput" placeholder="Description"></textarea>
+    <button onclick="uploadProduct()">Upload</button>
+  </div>
+
+  <h2>Product List</h2>
+  <div id="productsContainer"></div>
+
+  <!-- Proceed to Checkout Button -->
+  <div id="checkoutContainer" style="display: none;">
+    <button id="checkoutBtn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    function handleAdminLogin() {
+      const password = prompt("Enter admin password:");
+      if (password === "computers") {
+        localStorage.setItem('isAdmin', 'true');
+        location.reload();
+      } else {
+        alert("Wrong password.");
+      }
+    }
+
+    function handleAdminLogout() {
+      localStorage.setItem('isAdmin', 'false');
+      location.reload();
+    }
+
+    if (isAdmin) {
+      document.getElementById('uploadForm').style.display = 'block';
+      document.getElementById('uploadTitle').style.display = 'block';
+      document.getElementById('adminBtn').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'inline-block';
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      document.getElementById('cartCount').innerText = `🛒 ${cart.length}`;
+      document.getElementById('checkoutContainer').style.display = cart.length > 0 ? 'block' : 'none';
+    }
+
+    function addToCart(product) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function displayProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const productsContainer = document.getElementById('productsContainer');
+      productsContainer.innerHTML = '';
+
+      products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+          <h3>${product.title}</h3>
+          <p>${product.description}</p>
+          <p>$${product.price}</p>
+          <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+        `;
+        productsContainer.appendChild(productDiv);
+      });
+    }
+
+    function proceedToCheckout() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const lineItems = cart.map(item => ({
+        price_data: {
+          currency: 'usd',
+          product_data: { name: item.title },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: 1,
+      }));
+
+      fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: lineItems }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Failed to initiate checkout');
+        }
+      })
+      .catch(err => {
+        console.error('Checkout error:', err);
+        alert('Something went wrong!');
+      });
+    }
+
+    // ✅ Reset Cart Function
+    document.getElementById('resetCartBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset your cart?')) {
+        localStorage.removeItem('cart');
+        updateCartCount();
+      }
+    });
+
+    updateCartCount();
+    displayProducts();
+  </script>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
