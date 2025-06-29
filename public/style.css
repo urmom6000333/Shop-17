@@ -1,0 +1,110 @@
+/* public/style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.upload-form {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.upload-form input,
+.upload-form textarea,
+.upload-form button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product img,
+.product video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-video {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+  text-align: center;
+}
+
+.product p {
+  margin: 5px 0;
+  text-align: center;
+}
+
+.product strong {
+  color: green;
+  font-size: 18px;
+}
+
+.admin-tools {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.admin-tools input,
+.admin-tools button {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.extra-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.extra-img-wrapper {
+  position: relative;
+}
+
+.extra-img-wrapper img.extra-img {
+  width: 100px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.extra-img-wrapper button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

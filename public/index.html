@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Product Store</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script>
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  </script>
+
+  <!-- Navigation Bar -->
+  <div class="nav">
+    <button onclick="handleAdminLogin()" id="adminBtn">Admin Login</button>
+    <button onclick="handleAdminLogout()" id="logoutBtn" style="display:none">Logout</button>
+    <div id="cartCount">🛒 0</div>
+    <button id="resetCartBtn">Reset Cart</button>
+  </div>
+
+  <!-- Upload Form (Admin Only) -->
+  <h1 id="uploadTitle" style="display: none">Upload a Product</h1>
+  <div class="upload-form" id="uploadForm" style="display: none">
+    <input type="file" id="imageInput" />
+    <input type="file" id="videoInput" accept="video/*" />
+    <input type="text" id="titleInput" placeholder="Product Title" />
+    <input type="text" id="priceInput" placeholder="Price" />
+    <textarea id="descriptionInput" placeholder="Description"></textarea>
+    <button onclick="uploadProduct()">Upload</button>
+  </div>
+
+  <!-- Product List -->
+  <h2>Product List</h2>
+  <div id="productsContainer"></div>
+
+  <!-- Checkout -->
+  <div id="checkoutContainer" style="display: none;">
+    <button id="checkoutBtn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+
+  <!-- Auth and Cart Logic -->
+  <script>
+    function handleAdminLogin() {
+      const password = prompt("Enter admin password:");
+      if (password === "computers") {
+        localStorage.setItem('isAdmin', 'true');
+        location.reload();
+      } else {
+        alert("Wrong password.");
+      }
+    }
+
+    function handleAdminLogout() {
+      localStorage.setItem('isAdmin', 'false');
+      location.reload();
+    }
+
+    if (isAdmin) {
+      document.getElementById('uploadForm').style.display = 'block';
+      document.getElementById('uploadTitle').style.display = 'block';
+      document.getElementById('adminBtn').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'inline-block';
+    }
+
+    document.getElementById('resetCartBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset your cart?')) {
+        localStorage.removeItem('cart');
+        const count = document.getElementById('cartCount');
+        const checkout = document.getElementById('checkoutContainer');
+        count.innerText = `🛒 0`;
+        checkout.style.display = 'none';
+      }
+    });
+  </script>
+
+  <!-- Main Logic -->
+  <script src="scripts.js"></script>
+</body>
+</html>

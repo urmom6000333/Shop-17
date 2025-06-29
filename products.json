@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1750730360131,
+    "title": "REAL MADRID JERSEY",
+    "price": 29.99,
+    "description": "Turtle Ninja Mbappe 9#",
+    "imageUrl": "/uploads/1751180708862-mbappe.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750731489518,
+    "title": "REAL MADRID JERSEY",
+    "price": "29.99",
+    "description": "JUDE BELLIGOL NUMBER 5#",
+    "imageUrl": "/uploads/1751180744348-belligo.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750732284155,
+    "title": "REAL MADRID JERSEY",
+    "price": 29.99,
+    "description": "Flaco Valverde 8#",
+    "imageUrl": "/uploads/1751180761282-Flaco Valverde.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750911416158,
+    "title": "REAL MADRID JERSEY",
+    "price": 29.99,
+    "description": "VINI FICTICIUS JR 7#",
+    "imageUrl": "/uploads/1751180795761-vini ficticius.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1750984562238,
+    "title": "BARCELONA 24/25 SPOTIFY JERSEY",
+    "price": 34.99,
+    "description": "RAPHINHA 11#",
+    "imageUrl": "/uploads/1751180806444-barca green shirt.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1751147549782,
+    "title": "BARCELONA 24/25 SPOTIFY JERSEY",
+    "price": 34.99,
+    "description": "LAMINE YAMAL #19",
+    "imageUrl": "/uploads/1751180821159-barca green shirt.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1751169598288,
+    "title": "BARCELONA 24/25 SPOTIFY JERSEY",
+    "price": 34.99,
+    "description": "ROBERT LEWANDOWSKI #9",
+    "imageUrl": "/uploads/1751180845695-barca black shirt.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": 1751170368416,
+    "title": "BARCELONA 24/25 SPOTIFY JERSEY",
+    "price": 34.99,
+    "description": "PEDRI 8#",
+    "imageUrl": "/uploads/1751180856258-barca default shirt.webp",
+    "video": null,
+    "images": [],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  }
+]
