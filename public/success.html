@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      color: green;
+    }
+    p {
+      font-size: 18px;
+    }
+    .order-summary {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-top: 30px;
+      display: inline-block;
+    }
+    .button {
+      background-color: #28a745;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .note {
+      margin-top: 30px;
+      background-color: #ffeb3b;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ffcc00;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Thank You for Your Order!</h1>
+  <p>Your payment has been successfully processed.</p>
+
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <p>Order ID: <strong id="orderId">Loading...</strong></p>
+    <p>Total Amount: <strong id="amountPaid">Loading...</strong></p>
+  </div>
+
+  <p>If a tracking number is available, it will be sent to your email.</p>
+
+  <div class="note">
+    <p><strong>Please take a screenshot of this page for future reference. </strong></p>
+    <p>This order number will be required for any future return requests.</p>
+  </div>
+
+  <a href="/" class="button">Back to Shop</a>
+
+  <script>
+    // Log the current URL to check for issues
+    console.log('Current URL:', window.location.href); // log the full URL
+
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("order_number");
+    const amount = params.get("amount");
+
+    // Log the parameters retrieved from the URL
+    console.log("Order ID:", orderId);   // Log to check if orderId is being passed correctly
+    console.log("Amount:", amount);      // Log to check if amount is being passed correctly
+
+    // Check if the parameters are valid before displaying them
+    if (orderId && amount) {
+      document.getElementById("orderId").textContent = orderId;
+      document.getElementById("amountPaid").textContent = `$${parseFloat(amount).toFixed(2)}`;
+    } else {
+      // In case parameters are not available, show error or "N/A"
+      document.getElementById("orderId").textContent = "N/A";
+      document.getElementById("amountPaid").textContent = "N/A";
+      console.error("Error: Missing order number or amount parameters.");
+    }
+  </script>
+
+</body>
+</html>
